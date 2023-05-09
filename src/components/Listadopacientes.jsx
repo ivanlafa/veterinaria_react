@@ -2,7 +2,7 @@
 import Paciente from "./Paciente";
 
 
-const Listadopacientes = ({pacientes,setPaciente}) => {
+const Listadopacientes = ({pacientes,setPaciente,eliminarPaciente}) => {
 //console.log(pacientes);
 
 // useEffect(()=>{
@@ -29,6 +29,7 @@ const Listadopacientes = ({pacientes,setPaciente}) => {
   key={paciente.id}
   paciente={paciente}
   setPaciente={setPaciente}
+  eliminarPaciente={eliminarPaciente}
   />
 ))}
 </>

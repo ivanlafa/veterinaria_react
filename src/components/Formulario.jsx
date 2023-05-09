@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Error from './Error'
 
 
-const Formulario = ({pacientes,setPacientes,paciente}) => {
+const Formulario = ({pacientes,setPacientes,paciente,setPaciente}) => {
 
   //useState
 const [nombre, setNombre] = useState('');
@@ -16,8 +16,8 @@ const [error,setError]= useState(false)
 
 //console.log(paciente)
 
-useEffect(()=>{
-  if(Object.keys(paciente).length>0){
+useEffect(() => {
+  if( Object.keys(paciente).length > 0 ){
     setNombre(paciente.nombre)
     setPropietario(paciente.propietario)
     setEmail(paciente.email)
@@ -27,7 +27,7 @@ useEffect(()=>{
 }, [paciente])
 
 const generarId = () => {
-  const randomString = Math.random().toString(36).substr(2);
+  const randomString = Math.random().toString(36).substr(2, 10);
   const fecha = Date.now().toString(36)
 
   return randomString + fecha
@@ -50,11 +50,27 @@ const objetoPaciente={
   propietario,
   email,
   fecha,
-  sintomas,
-  id: generarId()
+  sintomas
+}
+
+if(paciente.id){
+  //console.log('editando')
+  //editando registro
+   objetoPaciente.id = paciente.id
+
+  const pacientesActualizados = pacientes.map(pacienteState => pacienteState.id === 
+    paciente.id ? objetoPaciente : pacienteState);
+   setPacientes(pacientesActualizados)
+   setPaciente({})
+
+}else{
+  //console.log('nuevo registro')}
+  //Nuevo registro}
+  objetoPaciente.id = generarId();
+  setPacientes([...pacientes, objetoPaciente]);
 }
 //console.log(objetoPaciente)
-setPacientes([...pacientes, objetoPaciente]);
+
 
 //reiniciar el form
 setNombre('')
@@ -143,7 +159,7 @@ setSintomas('')
           className="bg-indigo-600 w-full text-white font-bold border-2
            hover:bg-indigo-700
             cursor-pointer transition-opacity" 
-          value={paciente.id ? 'editar paciente' : 'agregar paciente'}
+          value={paciente.id ? 'editar paciente' : 'Agregar paciente'}
           />
 
 
