@@ -7,3 +7,4 @@ export default {
   plugins: [],
 }
 
+//quitar el ./ en indexhtml para realizar el deploy
